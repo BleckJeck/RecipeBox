@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RecipeBox</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+  <div id="app" class="container">
+
+    <div class="row header">
+      <h3 class="nine columns">My Recipe Book</h3>
+      <input id="search-bar" v-model="searchInput" class="three columns" type="text" placeholder="&#xf002;">
+    </div>
+
+    <hr>
+
+    <!-- This is where the recipe list is displayed -->
+    <div>
+      <p v-if="recipesList.length == 0" @click="showModal('create')">Add your first recipe!</p>
+      <div v-else>
+        <div v-for="(recipe, index) in filteredList" class="output">
+          <h4>
+            {{recipe.name}}
+            <a class="button btn-delete" @click="deleteRecipe(index)">Delete</a>
+            <a class="button" @click="readRecipe(index)">Read</a>
+          </h4>
+
+          <!-- this is the bit that expands to let you see the recipe -->
+          <div class="recipe-text" style="display: none">
+            <div>
+              <ul>
+                <li v-for="ingredient in recipe.ingredients">
+                  {{ingredient.name}} {{ingredient.quantity}}
+                </li>
+              </ul>
+            </div>
+            <hr>
+            <div>
+              <p v-for="line in recipe.steps.split('\n')">
+                {{line}}
+              </p>
+            </div>
+            <a class="button button-primary u-full-width" @click="editRecipe(index)" style="float: none">Edit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- This is the modal to add/edit new recipes -->
+    <div v-if="addingRecipe || editingRecipe" class="inputs">
+      <div class="inputs-content">
+        <span v-if="addingRecipe" @click="hideModal" class="close-btn">&times;</span>
+        <h4 v-if="addingRecipe">Add your Recipe</h4>
+        <h4 v-if="editingRecipe">Edit your Recipe</h4>
+        <form>
+          <div>
+            <label>Recipe Name</label>
+            <input v-model="newName" type="text" class="u-full-width" placeholder="The name of your recipe">
+          </div>
+          <div>
+            <label>Ingredients</label>
+            <input @keyup="keyMonitor" class="input-ingredient" v-model="newIngredient" type="text" placeholder="Ingredient">
+            <input @keyup="keyMonitor" class="input-quantity" v-model="newQuantity" type="text" placeholder="Qty">
+            <div id="addIngredient" class="btn-green" @click="addIngredient">&plus;</div>
+            <ul id="ingredientsList">
+              <li v-for="(ingredient, index) in ingredientsList">
+                <span @click="deleteIngredient(index)" class="remove-btn">&times;</span>
+                {{ingredient.name}} {{ingredient.quantity}}
+              </li>
+            </ul>
+          </div>
+          <div>
+            <label>Steps</label>
+            <textarea v-model="newSteps" class="u-full-width" placeholder="How to prepare the recipe"></textarea>
+          </div>
+          <div v-if="addingRecipe" @click="addRecipe" class="button btn-green u-full-width">Add to Recipe Book</div>
+          <div v-if="editingRecipe" @click="addRecipe" class="button btn-green u-full-width">Save</div>
+        </form>
+      </div>
+    </div>
+
+    <!-- This is the button to add new recipes -->
+    <div id="new" @click="showModal('create')">&plus;</div>
+
+    <hr>
+
+    <footer class="footer">
+      <p>Coded by <a href="https://www.freecodecamp.org/bleckjeck" target="_blank">BleckJeck</a></p>
+    </footer>
+
+  </div>
+
+  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
