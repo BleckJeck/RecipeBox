@@ -9,6 +9,7 @@ const app = new Vue({
     editingRecipe: false,
     addingRecipe: false,
     newName: "",
+    newPic: "",
     newIngredient: "",
     newQuantity: "",
     ingredientsList: [],
@@ -31,6 +32,7 @@ const app = new Vue({
       this.newIngredient = "";
       this.ingredientsList = [];
       this.newSteps = "";
+      this.newPic = "";
     },
     addIngredient() {
       if(this.newIngredient == "") {
@@ -55,11 +57,12 @@ const app = new Vue({
       } else if(this.ingredientsList.length == 0) {
         alert('Please add at least one ingredient');
       } else {
-        // create an object ot send to local storage
+        // create an object to send to local storage
         let recipe = {
           name: this.newName,
           ingredients: this.ingredientsList,
-          steps: this.newSteps
+          steps: this.newSteps,
+          pic: this.newPic
         };
 
         // send object to local storage
@@ -108,6 +111,7 @@ const app = new Vue({
       this.newName = recipes[index].name;
       this.ingredientsList = recipes[index].ingredients;
       this.newSteps = recipes[index].steps;
+      this.newPic = recipes[index].pic;
       this.deleteRecipe(index);
       this.showModal('edit');
     },
@@ -125,6 +129,18 @@ const app = new Vue({
       if(localStorage.getItem('recipes') !== null) {
         let recipes = JSON.parse(localStorage.getItem('recipes'));
         this.recipesList = recipes;
+      }
+    },
+    addPic(e) {
+      let file = e.target.files[0];
+      let reader = new FileReader();
+
+      reader.addEventListener("load", () => {
+        this.newPic = reader.result;
+      });
+
+      if (file) {
+        reader.readAsDataURL(file);
       }
     }
   },

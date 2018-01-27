@@ -36,12 +36,17 @@
 
           <!-- this is the bit that expands to let you see the recipe -->
           <div class="recipe-text" style="display: none">
-            <div>
-              <ul>
-                <li v-for="ingredient in recipe.ingredients">
-                  {{ingredient.name}} {{ingredient.quantity}}
-                </li>
-              </ul>
+            <div class="row">
+              <div class="one-half column">
+                <img :src="recipe.pic" alt="Woops! Where did it go?">
+              </div>
+              <div class="one-half column">
+                <ul class="">
+                  <li v-for="ingredient in recipe.ingredients">
+                    {{ingredient.name}} {{ingredient.quantity}}
+                  </li>
+                </ul>
+              </div>
             </div>
             <hr>
             <div>
@@ -64,7 +69,15 @@
         <form>
           <div>
             <label>Recipe Name</label>
-            <input v-model="newName" type="text" class="u-full-width" placeholder="The name of your recipe">
+            <input v-model="newName" type="text" placeholder="The name of your recipe">
+            <div v-if="addingRecipe">
+              <input id="addPic" type="file" @change="addPic">
+              <img id="pic" :src="newPic" alt="Loading..." style="height: 200px; width: auto">
+            </div>
+            <div v-if="editingRecipe">
+              <input id="addPic" type="file" @change="addPic">
+              <img id="pic" :src="newPic" alt="Loading..." style="height: 200px; width: auto">
+            </div>
           </div>
           <div>
             <label>Ingredients</label>
