@@ -37,10 +37,10 @@
           <!-- this is the bit that expands to let you see the recipe -->
           <div class="recipe-text" style="display: none">
             <div class="row">
-              <div class="one-half column">
-                <img :src="recipe.pic" alt="Woops! Where did it go?">
+              <div v-if="recipe.pic" class="one-third column">
+                <img :src="recipe.pic">
               </div>
-              <div class="one-half column">
+              <div class="two-thirds column">
                 <ul class="">
                   <li v-for="ingredient in recipe.ingredients">
                     {{ingredient.name}} {{ingredient.quantity}}
@@ -67,16 +67,26 @@
         <h4 v-if="addingRecipe">Add your Recipe</h4>
         <h4 v-if="editingRecipe">Edit your Recipe</h4>
         <form>
-          <div>
-            <label>Recipe Name</label>
-            <input v-model="newName" type="text" placeholder="The name of your recipe">
-            <div v-if="addingRecipe">
-              <input id="addPic" type="file" @change="addPic">
-              <img id="pic" :src="newPic" alt="Loading..." style="height: 200px; width: auto">
+          <div class="row">
+            <div class="two-thirds column">
+              <label>Recipe Name</label>
+              <input class="u-full-width" v-model="newName" type="text" placeholder="The name of your recipe">
             </div>
-            <div v-if="editingRecipe">
-              <input id="addPic" type="file" @change="addPic">
-              <img id="pic" :src="newPic" alt="Loading..." style="height: 200px; width: auto">
+            <div class="one-third column">
+              <label v-if="newPic == ''" class="fileInput">
+                Add Picture
+                <input v-if="newPic == ''" type="file" accept="image/*" @change="addPic">
+              </label>
+
+
+              <div v-else id="previewPic" @click="newPic = ''">
+                <img :src="newPic" alt="Avatar">
+                <div class="overlay">
+                  <div class="text">Click to Remove</div>
+                </div>
+              </div>
+
+
             </div>
           </div>
           <div>

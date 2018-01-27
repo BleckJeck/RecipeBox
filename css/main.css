@@ -14,6 +14,10 @@ body {
   margin-top: 5rem;
   font-family: 'Comfortaa', cursive; }
 
+img {
+  max-width: 100%;
+  max-height: 100%; }
+
 .btn-delete {
   background-color: #D03F52; }
 
@@ -60,8 +64,60 @@ body {
       float: right;
       font-size: 30px;
       cursor: pointer; }
+    .inputs .inputs-content .fileInput {
+      overflow: hidden;
+      position: relative;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #d1d1d1;
+      color: #8e8e8e;
+      border-radius: 5px;
+      background: #fff;
+      text-align: center;
+      max-height: 50px;
+      width: auto;
+      line-height: 50px; }
+      .inputs .inputs-content .fileInput [type=file] {
+        cursor: pointer;
+        display: block;
+        font-size: 999px;
+        filter: alpha(opacity=0);
+        min-height: 100%;
+        min-width: 100%;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        top: 0; }
+    .inputs .inputs-content #previewPic {
+      position: relative;
+      max-width: 75%;
+      max-height: 75%; }
+      .inputs .inputs-content #previewPic:hover .overlay {
+        opacity: 0.7; }
+      .inputs .inputs-content #previewPic img {
+        display: block;
+        width: 100%;
+        height: auto; }
+      .inputs .inputs-content #previewPic .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        background: #2f2f2f;
+        transition: .5s ease; }
+        .inputs .inputs-content #previewPic .overlay .text {
+          position: relative;
+          top: 50%;
+          color: #fff;
+          text-align: center;
+          width: 100%; }
     .inputs .inputs-content .input-ingredient {
-      width: 40vw; }
+      width: 35vw; }
     .inputs .inputs-content .input-quantity {
       width: 10vw; }
     .inputs .inputs-content #addIngredient {
@@ -109,9 +165,6 @@ body {
     border-top: 1px solid #2f2f2f;
     padding-top: 20px;
     font-size: 1.5rem; }
-    .output .recipe-text img {
-      max-width: 100%;
-      max-height: 100%; }
 
 /* FOOTER */
 .footer {
@@ -129,6 +182,10 @@ body {
     width: 100%;
     margin-top: 1rem; }
   .output h4 {
-    text-align: center; } }
+    text-align: center; }
+
+  .inputs .fileInput {
+    margin-top: 0;
+    margin-bottom: 10px; } }
 
 /*# sourceMappingURL=main.css.map */
