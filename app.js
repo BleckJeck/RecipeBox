@@ -9,6 +9,7 @@ const app = new Vue({
     editingRecipe: false,
     addingRecipe: false,
     newName: "",
+    newStars: "",
     newPic: "",
     newIngredient: "",
     newQuantity: "",
@@ -29,6 +30,7 @@ const app = new Vue({
       this.addingRecipe = false;
       this.editingRecipe = false;
       this.newName = "";
+      this.newStars = "";
       this.newIngredient = "";
       this.ingredientsList = [];
       this.newSteps = "";
@@ -56,10 +58,13 @@ const app = new Vue({
         alert('Please add the name of your recipe');
       } else if(this.ingredientsList.length == 0) {
         alert('Please add at least one ingredient');
+      } else if(this.newStars == "") {
+        alert('Please add a rating');
       } else {
         // create an object to send to local storage
         let recipe = {
           name: this.newName,
+          stars: this.newStars,
           ingredients: this.ingredientsList,
           steps: this.newSteps,
           pic: this.newPic
@@ -109,6 +114,7 @@ const app = new Vue({
       // populates the modals with the data from local storage
       let recipes = JSON.parse(localStorage.getItem('recipes'));
       this.newName = recipes[index].name;
+      this.newStars = recipes[index].stars;
       this.ingredientsList = recipes[index].ingredients;
       this.newSteps = recipes[index].steps;
       this.newPic = recipes[index].pic;

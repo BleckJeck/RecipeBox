@@ -42,8 +42,6 @@ img {
 /* HEADER */
 .header {
   color: #00631b; }
-  .header #search-bar {
-    font-family: FontAwesome, "Open Sans", Verdana, sans-serif; }
 
 /* NEW RECIPE MODAL */
 .inputs {
@@ -165,6 +163,26 @@ img {
     border-top: 1px solid #2f2f2f;
     padding-top: 20px;
     font-size: 1.5rem; }
+  .output .stars-out {
+    position: relative;
+    display: inline-block; }
+  .output .stars-in {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0; }
+  .output .stars-out::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #ccc; }
+  .output .stars-in::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #f8c30b; }
 
 /* FOOTER */
 .footer {

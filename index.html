@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>RecipeBox</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
   <link rel="stylesheet" href="css/main.css">
@@ -18,7 +18,7 @@
 
     <div class="row header">
       <h3 class="nine columns">My Recipe Book</h3>
-      <input id="search-bar" v-model="searchInput" class="three columns" type="text" placeholder="&#xf002;">
+      <input id="search-bar" v-model="searchInput" class="three columns" type="text" placeholder="Search your recipes...">
     </div>
 
     <hr>
@@ -29,7 +29,12 @@
       <div v-else>
         <div v-for="(recipe, index) in filteredList" class="output">
           <h4>
-            {{recipe.name}}
+            <span>{{recipe.name}}</span>
+            <span>
+              <span class="stars-out">
+                <span class="stars-in" v-bind:style="{ width: recipe.stars[0]*20 + '%' }"></span>
+              </span>
+            </span>
             <a class="button btn-delete" @click="deleteRecipe(index)">Delete</a>
             <a class="button" @click="readRecipe(index)">Read</a>
           </h4>
@@ -68,9 +73,21 @@
         <h4 v-if="editingRecipe">Edit your Recipe</h4>
         <form>
           <div class="row">
-            <div class="two-thirds column">
+            <div class="one-third column">
               <label>Recipe Name</label>
               <input class="u-full-width" v-model="newName" type="text" placeholder="The name of your recipe">
+            </div>
+            <div class="one-third column">
+              <label>Rating</label>
+              <select class="u-full-width" v-model="newStars">
+                <option disabled value="">Select a Rating</option>
+                <option>0 stars - basically inedible</option>
+                <option>1 star - as tasty as cardboard</option>
+                <option>2 stars - ok if you're drunk</option>
+                <option>3 stars - halfway decent</option>
+                <option>4 stars - very good everyday meal</option>
+                <option>5 stars - a meal to impress</option>
+              </select>
             </div>
             <div class="one-third column">
               <label v-if="newPic == ''" class="fileInput">
@@ -78,14 +95,12 @@
                 <input v-if="newPic == ''" type="file" accept="image/*" @change="addPic">
               </label>
 
-
               <div v-else id="previewPic" @click="newPic = ''">
                 <img :src="newPic" alt="Avatar">
                 <div class="overlay">
                   <div class="text">Click to Remove</div>
                 </div>
               </div>
-
 
             </div>
           </div>
