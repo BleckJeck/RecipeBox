@@ -30,7 +30,7 @@
         <div v-for="(recipe, index) in filteredList" class="output">
           <h4>
             <span>{{recipe.name}}</span>
-            <span>
+            <span style="margin-left: 1vw;">
               <span class="stars-out">
                 <span class="stars-in" v-bind:style="{ width: recipe.stars[0]*20 + '%' }"></span>
               </span>
